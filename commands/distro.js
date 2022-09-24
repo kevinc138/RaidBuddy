@@ -25,7 +25,10 @@ module.exports = {
                 .addStringOption(option => 
                     option.setName('distro')
                     .setDescription('The name of the distro to unsubscribe to.')
-                    .setRequired(true))),
+                    .setRequired(true)))
+            .addSubcommand(subcommand => 
+                subcommand.setName('list_distros')
+                .setDescription('Lists all of the distros for this guild.')),
     async execute(interaction) {
 
         let distro = interaction.options.getString('distro');
@@ -37,6 +40,8 @@ module.exports = {
             subscriptions.addUserSubscription(interaction, distro);
         } else if(subcommand === 'unsubscribe') {
             subscriptions.removeUserSubscription(interaction, distro);
+        } else if(subcommand === 'list_distros') {
+            subscriptions.listGameDistros(interaction);
         }
     },
 };

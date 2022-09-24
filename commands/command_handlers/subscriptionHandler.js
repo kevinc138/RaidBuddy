@@ -127,7 +127,7 @@ async function pingGameDistro(msg, game) {
 
     const query = {
       name: game,
-      guildId: msg.channel.guild.id
+      guildId: msg.guildId
     };
 
     const gameSub = await collection.findOne(query);
@@ -153,11 +153,43 @@ async function pingGameDistro(msg, game) {
   }
 }
 
+async function listGameDistros(interaction) {
+    try {
+        let collection = mongoUtils.getDb().collection("subscriptions");
+
+        const query = {
+          guildId: interaction.guildId
+        };
+
+        const gameSub = await collection.find(query);
+
+        let sb = "";
+        let distroCount = 0;
+
+        await gameSub.forEach((distro) => {
+            sb += distro.name + "\n";
+            distroCount++;
+        });
+
+        if(distroCount === 0) {
+            interaction.reply("There are no distros for this server.");
+        } else {
+            interaction.reply(sb);
+        }
+
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
+
 function buildMentionString(userId) {
   return "<@" + userId + ">";
 }
 
-
+module.exports.listGameDistros = listGameDistros;
 module.exports.pingGameDistro = pingGameDistro;
 module.exports.removeUserSubscription = removeUserSubscription;
 module.exports.addUserSubscription = addUserSubscription;
