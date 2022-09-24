@@ -46,3 +46,4 @@ const ChoiceEnum = {
     dsc_taniks: 'command_assets/TaniksReborn.png',
     dsc_taniksAbom: 'command_assets/DSCTaniksAbom.png'
 }
+Object.freeze(ChoiceEnum);
