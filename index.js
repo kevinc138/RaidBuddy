@@ -2,6 +2,7 @@ require('dotenv').config();
 const fs = require('node:fs');
 const path = require('node:path');
 const Discord = require('discord.js');
+var mongoUtils = require('./mongo/mongoUtils')
 
 const client = new Discord.Client({ intents: Discord.GatewayIntentBits.Guilds});
 const TOKEN = process.env.TOKEN;
@@ -17,6 +18,8 @@ for(const file of commandFiles) {
 
     client.commands.set(command.data.name, command);
 }
+
+mongoUtils.connectToServer();
 
 client.on('debug', console.log);
 

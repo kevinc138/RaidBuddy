@@ -1,4 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
+const path = require('node:path');
+
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,18 +13,18 @@ module.exports = {
                     subcommand.setName('last_wish')
                     .setDescription('Last Wish raid')
                     .addStringOption(option => 
-                        option.setName('lw_encounter')
+                        option.setName('encounter')
                         .setDescription('The item you want more info about.')
                         .setRequired(true)
                         .addChoices(
                             { name: 'LW Symbols', value: 'lw_symbols'},
-                            { name: 'riven eyes', value: 'lw_eyes'}
+                            { name: 'Riven eyes', value: 'lw_eyes'}
                         )))
                 .addSubcommand(subcommand =>
                     subcommand.setName('deep_stone_crypt')
                     .setDescription('Deep Stone Crypt raid')
                     .addStringOption(option => 
-                        option.setName('dsc_encounter')
+                        option.setName('encounter')
                         .setDescription('The item you want more info about.')
                         .setRequired(true)
                         .addChoices(
@@ -30,8 +32,17 @@ module.exports = {
                             { name: 'Taniks Abomination', value: 'dsc_taniksAbom'}
                         )))),
     async execute(interaction) {
-        console.log(interaction);
-        console.log(interaction.options);
-        await interaction.reply(`${interaction.options.getString('raid_encounter')}`);
+
+        let p = path.join(__dirname, ChoiceEnum[interaction.options.getString('encounter')]);
+
+        await interaction.reply({ files: [ p ]});
     },
 };
+
+
+const ChoiceEnum = {
+    lw_symbols: 'command_assets/LWSymbols.png',
+    lw_eyes: 'command_assets/RivenEyes.png',
+    dsc_taniks: 'command_assets/TaniksReborn.png',
+    dsc_taniksAbom: 'command_assets/DSCTaniksAbom.png'
+}
