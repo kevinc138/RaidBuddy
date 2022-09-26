@@ -1,0 +1,28 @@
+{
+  "name": "raidbuddy",
+  "version": "1.0.0",
+  "description": "A Discord Bot for quick references and callouts",
+  "main": "index.js",
+  "scripts": {
+    "test": "testing"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevinc138/RaidBuddy.git"
+  },
+  "author": "Kevin Courtade",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kevinc138/RaidBuddy/issues"
+  },
+  "homepage": "https://github.com/kevinc138/RaidBuddy#readme",
+  "dependencies": {
+    "@discordjs/rest": "^1.1.0",
+    "cheerio": "^1.0.0-rc.12",
+    "discord.js": "^14.4.0",
+    "dotenv": "^16.0.2",
+    "mongo": "^0.1.0",
+    "mongodb": "^4.10.0",
+    "request-promise": "^4.2.6"
+  }
+}
