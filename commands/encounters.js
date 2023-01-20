@@ -29,7 +29,21 @@ module.exports = {
                         .setRequired(true)
                         .addChoices(
                             { name: 'Taniks First', value: 'dsc_taniks'},
-                            { name: 'Taniks Abomination', value: 'dsc_taniksAbom'}
+                            { name: 'Taniks Abomination', value: 'dsc_taniksAbom'},
+                            { name: 'Vault Security', value: 'dsc_vault'} 
+                        ))))
+            .addSubcommandGroup(scgroup =>
+                scgroup.setName('dungeon')
+                .setDescription('Which dungeon?')
+                .addSubcommand(subcommand =>
+                  subcommand.setName('sotw')
+                  .setDescription('Spire of the Watcher')
+                  .addStringOption(option => 
+                        option.setName('encounter')
+                        .setDescription('Which encounter?')
+                        .setRequired(true)
+                        .addChoices(
+                          { name: 'Persys, Primordial Ruin', value: 'persys'}
                         )))),
     async execute(interaction) {
 
@@ -39,11 +53,12 @@ module.exports = {
     },
 };
 
-
 const ChoiceEnum = {
     lw_symbols: 'command_assets/LWSymbols.png',
     lw_eyes: 'command_assets/RivenEyes.png',
     dsc_taniks: 'command_assets/TaniksReborn.png',
-    dsc_taniksAbom: 'command_assets/DSCTaniksAbom.png'
+    dsc_taniksAbom: 'command_assets/DSCTaniksAbom.png',
+    dsc_vault: 'command_assets/DSCVault.png',
+    persys: 'command_assets/spirewatcher2.jpeg'
 }
 Object.freeze(ChoiceEnum);

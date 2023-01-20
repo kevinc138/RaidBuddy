@@ -25,6 +25,6 @@ rest.put(Routes.applicationCommands(clientId),{ body: commands })
         .catch(console.error);
 
 //Use this for Guild Specific commands.
-/*rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
+/*rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: [] })
     .then(data => console.log(`Successfully registered ${data.length} application commands`))
     .catch(console.error);*/
