@@ -121,7 +121,7 @@ async function removeUserSubscription(msg, game) {
   }
 }
 
-async function pingGameDistro(msg, game) {
+async function pingGameDistro(msg, game, notificationText) {
   try {
     let collection = mongoUtils.getDb().collection("subscriptions");
 
@@ -146,6 +146,12 @@ async function pingGameDistro(msg, game) {
       fullListString += buildMentionString(subscribers[sub].id) + " ";
     }
 
+    if (notificationText != null) {
+      fullListString += "\n\n" + notificationText;
+    }
+
+    fullListString += "\n\n" + "Want to subscribe to a distribution list? Just use the /subscribe command and type the name of the distro!";
+
     msg.reply(fullListString);
 
   } catch (err) {
@@ -154,33 +160,33 @@ async function pingGameDistro(msg, game) {
 }
 
 async function listGameDistros(interaction) {
-    try {
-        let collection = mongoUtils.getDb().collection("subscriptions");
+  try {
+    let collection = mongoUtils.getDb().collection("subscriptions");
 
-        const query = {
-          guildId: interaction.guildId
-        };
+    const query = {
+      guildId: interaction.guildId
+    };
 
-        const gameSub = await collection.find(query);
+    const gameSub = await collection.find(query);
 
-        let sb = "";
-        let distroCount = 0;
+    let sb = "";
+    let distroCount = 0;
 
-        await gameSub.forEach((distro) => {
-            sb += distro.name + "\n";
-            distroCount++;
-        });
+    await gameSub.forEach((distro) => {
+      sb += distro.name + "\n";
+      distroCount++;
+    });
 
-        if(distroCount === 0) {
-            interaction.reply("There are no distros for this server.");
-        } else {
-            interaction.reply(sb);
-        }
-
-
-    } catch (err) {
-        console.log(err);
+    if (distroCount === 0) {
+      interaction.reply("There are no distros for this server.");
+    } else {
+      interaction.reply(sb);
     }
+
+
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 
